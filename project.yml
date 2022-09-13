@@ -14,4 +14,5 @@ packages:
         parameters: {}
         environment: {}
         annotations: {}
-        limits: {}
+        limits: 
+          timeout: 30000 
