@@ -4,15 +4,15 @@ import scrapper
 import rally
 
 TOKEN = "***REMOVED***"
-CHANNEL = "bottest"
+CHANNEL = "sports"
 
 
 def main(args):
     request_token = args.get("token", "TOKEN")
-    request_channel = args.get("channel_name", "ASDASD")
+    request_channel = args.get("channel_name", "CHANNEL")
 
-    # if request_token != TOKEN or request_channel != CHANNEL:
-    #     return {"statusCode": 403}
+    if request_token != TOKEN or request_channel != CHANNEL:
+        return {"statusCode": 403}
 
     today = date.today()
     next_monday = today + timedelta(days=-today.weekday(), weeks=1)
