@@ -1,5 +1,6 @@
 # Payloads
 MATTER_PAYLOAD = {
+    "username": "Volleyball BOT",
     "icon_url": "https://i.pinimg.com/736x/84/36/cf/8436cf7032a6d1895c9834cb137107cb.jpg",
     "response_type": "in_channel",
     "attachments": [
