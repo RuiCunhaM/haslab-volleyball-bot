@@ -4,14 +4,18 @@ import scrapper
 import rally
 
 TOKEN = "qgt54mas5tdqzkriy176z9zxwo"
-CHANNEL = "sports"
+VALID_CHANNELS = [
+    "sports",
+    "bottest",
+    "testing-channel",
+]
 
 
 def main(args):
     request_token = args.get("token", "TOKEN")
     request_channel = args.get("channel_name", "CHANNEL")
 
-    if request_token != TOKEN or request_channel != CHANNEL:
+    if request_token != TOKEN or request_channel not in VALID_CHANNELS:
         return {"statusCode": 403}
 
     today = date.today()
