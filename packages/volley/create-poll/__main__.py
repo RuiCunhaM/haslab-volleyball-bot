@@ -30,9 +30,17 @@ def main(args):
             "body": str(e),
         }
 
+    MATTER_PAYLOAD["text"] = "<!channel>"
     MATTER_PAYLOAD["attachments"][0]["fallback"] = rally_url
     MATTER_PAYLOAD["attachments"][0]["text"] = rally_url
-    MATTER_PAYLOAD["attachments"][0]["title"] = f"Volleyball week {next_monday}"
+    MATTER_PAYLOAD["attachments"][0]["title"] = f"Rallly for next week!"
+    MATTER_PAYLOAD["attachments"][0]["fields"] = [
+        {
+            "short": True,
+            "title": "Week",
+            "value": f"{next_monday}",
+        },
+    ]
 
     return {
         "headers": {
