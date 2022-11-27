@@ -16,3 +16,18 @@ packages:
         annotations: {}
         limits: 
           timeout: 30000 
+  - name: basket
+    environment: {}
+    parameters: {}
+    annotations: {}
+    functions:
+      - name: create-poll
+        binary: false
+        main: ''
+        runtime: 'python:default'
+        web: true
+        parameters: {}
+        environment: {}
+        annotations: {}
+        limits: 
+          timeout: 30000 
