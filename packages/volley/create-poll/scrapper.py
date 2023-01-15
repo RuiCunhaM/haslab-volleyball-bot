@@ -14,10 +14,10 @@ UM_TEMPLATE_URL = Template(
 )
 
 
-def get_slots(date):
+def get_slots(start_date):
     slots = []
-    for i in range(5):
-        curr_date = (date + timedelta(days=i)).isoformat()
+    for i in range(5 - start_date.weekday()):
+        curr_date = (start_date + timedelta(days=i)).isoformat()
 
         response = get(UM_TEMPLATE_URL.substitute(date=curr_date))
 
