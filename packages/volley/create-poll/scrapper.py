@@ -4,8 +4,6 @@ from string import Template
 from datetime import timedelta, time
 
 VALID_HOURS = [
-    ("09:00", "09:30"),
-    ("11:00", "11:30"),
     ("17:00", "17:30"),
 ]
 
@@ -17,28 +15,30 @@ UM_TEMPLATE_URL = Template(
 def get_slots(start_date):
     slots = []
     for i in range(5 - start_date.weekday()):
-        curr_date = (start_date + timedelta(days=i)).isoformat()
+        curr_date = start_date + timedelta(days=i)
+        
+        if curr_date.weekday() != 2:  # Ignore Wednesday
+            iso_date = curr_date.isoformat()
+            response = get(UM_TEMPLATE_URL.substitute(date=iso_date))
 
-        response = get(UM_TEMPLATE_URL.substitute(date=curr_date))
+            if not response.ok:
+                raise Exception("Error retrieving UM data")
 
-        if not response.ok:
-            raise Exception("Error retrieving UM data")
+            soup = BeautifulSoup(response.content, "html.parser")
 
-        soup = BeautifulSoup(response.content, "html.parser")
-
-        results = soup.find_all("div", class_="col-sm-7")[1]
-        available = results.find_all(
-            "button", class_="btn btn-primary btn-m btn_reserva"
-        )
-        available = [x.text for x in available]
-        for h1, h2 in VALID_HOURS:
-            if h1 in available and h2 in available:
-                start_time = time.fromisoformat(h1)
-                end_time = time(
-                    start_time.hour + 1, start_time.minute, start_time.second
-                )
-                slots.append(
-                    f"{curr_date}T{start_time}/{curr_date}T{end_time}"
-                )
+            results = soup.find_all("div", class_="col-sm-7")[1]
+            available = results.find_all(
+                "button", class_="btn btn-primary btn-m btn_reserva"
+            )
+            available = [x.text for x in available]
+            for h1, h2 in VALID_HOURS:
+                if h1 in available and h2 in available:
+                    start_time = time.fromisoformat(h1)
+                    end_time = time(
+                        start_time.hour + 1, start_time.minute, start_time.second
+                    )
+                    slots.append(
+                        f"{iso_date}T{start_time}/{iso_date}T{end_time}"
+                    )
 
     return slots
