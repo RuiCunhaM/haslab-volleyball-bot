@@ -4,7 +4,7 @@ from string import Template
 
 RALLY_CREATE_URL = "https://rallly.co/api/trpc/polls.create?batch=1"
 RALLY_GET_URL = Template(
-    'https://rallly.co/api/trpc/poll.getByAdminUrlId?batch=1&input={"0":{"json":{"urlId":"$urlId"}}}'
+    'https://rallly.co/api/trpc/polls.getByAdminUrlId?batch=1&input={"0":{"json":{"urlId":"$urlId"}}}'
 )
 
 
