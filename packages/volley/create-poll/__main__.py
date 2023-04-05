@@ -23,7 +23,7 @@ def main(args):
 
     if not request_text:
         start = today + timedelta(days=-today.weekday(), weeks=1)
-        title = "Rallly for next week!" 
+        title = "Rallly for next week!"
     elif request_text == "current":
         start = today + timedelta(days=1)
         title = "Rallly for this week!"
@@ -45,7 +45,7 @@ def main(args):
     MATTER_PAYLOAD["text"] = "<!channel>"
     MATTER_PAYLOAD["attachments"][0]["fallback"] = rally_url
     MATTER_PAYLOAD["attachments"][0]["text"] = rally_url
-    MATTER_PAYLOAD["attachments"][0]["title"] = title 
+    MATTER_PAYLOAD["attachments"][0]["title"] = title
     MATTER_PAYLOAD["attachments"][0]["fields"] = [
         {
             "short": True,
