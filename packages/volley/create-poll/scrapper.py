@@ -36,6 +36,11 @@ def get_slots(start_date):
                 end_time = time(
                     start_time.hour + 1, start_time.minute, start_time.second
                 )
-                slots.append(f"{iso_date}T{start_time}/{iso_date}T{end_time}")
+                slots.append(
+                    {
+                        "startDate": f"{iso_date}T{start_time}",
+                        "endDate": f"{iso_date}T{end_time}",
+                    }
+                )
 
     return slots
