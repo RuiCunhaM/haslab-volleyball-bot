@@ -1,11 +1,7 @@
 from payloads import RALLY_PAYLOAD
-from requests import post, get
-from string import Template
+from requests import post
 
-RALLY_CREATE_URL = "https://rallly.co/api/trpc/polls.create?batch=1"
-RALLY_GET_URL = Template(
-    'https://rallly.co/api/trpc/polls.getByAdminUrlId?batch=1&input={"0":{"json":{"urlId":"$urlId"}}}'
-)
+RALLY_CREATE_URL = "https://app.rallly.co/api/trpc/polls.create?batch=1"
 
 
 def create_poll(slots, date):
@@ -17,15 +13,6 @@ def create_poll(slots, date):
     if not response.ok:
         raise Exception("Error creating Rally poll")
 
-    urlId = response.json()[0]["result"]["data"]["json"]["urlId"]
+    urlId = response.json()[0]["result"]["data"]["json"]["id"]
 
-    response = get(RALLY_GET_URL.substitute(urlId=urlId))
-
-    if not response.ok:
-        raise Exception("Error obtaining participantUrlId")
-
-    participantUrlId = response.json()[0]["result"]["data"]["json"][
-        "participantUrlId"
-    ]
-
-    return f"https://rallly.co/p/{participantUrlId}"
+    return f"https://app.rallly.co/invite/{urlId}"
