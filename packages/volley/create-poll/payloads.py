@@ -19,10 +19,10 @@ RALLY_PAYLOAD = {
             "type": "date",
             "location": "Nave 2",
             "description": "",
-            "user": {
-                "name": "Volleyball BOT",
-                "email": "rpmonteiro25@hotmail.com",
-            },
+            # "user": {
+            #     "name": "Volleyball BOT",
+            #     "email": "rpmonteiro25@hotmail.com",
+            # },
             "timeZone": "Europe/Lisbon",
         }
     }

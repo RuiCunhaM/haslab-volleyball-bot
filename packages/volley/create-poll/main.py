@@ -35,7 +35,6 @@ def create_poll(args):
 
     try:
         slots = scrapper.get_slots(start)
-        print(slots)
         rally_url = rally.create_poll(slots, start)
     except Exception as e:
         return {
