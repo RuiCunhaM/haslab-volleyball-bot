@@ -15,15 +15,14 @@ MATTER_PAYLOAD = {
 RALLY_PAYLOAD = {
     "0": {
         "json": {
+            "disableComments": False,
+            "hideParticipants": False,
+            "hideScores": False,
             "title": "Volleyball",
-            "type": "date",
             "location": "Nave 2",
-            "description": "",
-            # "user": {
-            #     "name": "Volleyball BOT",
-            #     "email": "rpmonteiro25@hotmail.com",
-            # },
             "timeZone": "Europe/Lisbon",
-        }
+            "requireParticipantEmail": None,
+        },
+        "meta": {"values": {"requireParticipantEmail": ["undefined"]}},
     }
 }
