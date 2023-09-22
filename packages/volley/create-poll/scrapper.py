@@ -4,7 +4,7 @@ from string import Template
 from datetime import timedelta, time
 
 VALID_HOURS = [
-    ("17:00", "17:30"),
+    "17:00",
 ]
 
 UM_TEMPLATE_URL = Template(
@@ -30,9 +30,9 @@ def get_slots(start_date):
             "button", class_="btn btn-primary btn-m btn_reserva"
         )
         available = [x.text for x in available]
-        for h1, h2 in VALID_HOURS:
-            if h1 in available and h2 in available:
-                start_time = time.fromisoformat(h1)
+        for h in VALID_HOURS:
+            if h in available:
+                start_time = time.fromisoformat(h)
                 end_time = time(
                     start_time.hour + 1, start_time.minute, start_time.second
                 )
