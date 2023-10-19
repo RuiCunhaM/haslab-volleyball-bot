@@ -21,7 +21,7 @@ def get_slots(start_date):
         response = get(UM_TEMPLATE_URL.substitute(date=iso_date))
 
         if not response.ok:
-            raise Exception("Error retrieving UM data")
+            raise Exception(response.json())
 
         soup = BeautifulSoup(response.content, "html.parser")
 
