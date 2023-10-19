@@ -11,7 +11,7 @@ def create_poll(slots, date):
     response = post(RALLY_CREATE_URL, json=RALLY_PAYLOAD)
 
     if not response.ok:
-        raise Exception("Error creating Rally poll")
+        raise Exception(response.json())
 
     urlId = response.json()[0]["result"]["data"]["json"]["id"]
 
