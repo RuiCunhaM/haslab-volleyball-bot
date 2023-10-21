@@ -12,7 +12,7 @@ MATTER_PAYLOAD = {
     ],
 }
 
-RALLY_PAYLOAD = {
+RALLLY_PAYLOAD = {
     "0": {
         "json": {
             "disableComments": False,
@@ -26,3 +26,26 @@ RALLY_PAYLOAD = {
         "meta": {"values": {"requireParticipantEmail": ["undefined"]}},
     }
 }
+
+
+def matter_payload(start_date, title, rallly_url):
+    MATTER_PAYLOAD["text"] = "<!channel>"
+    MATTER_PAYLOAD["attachments"][0]["fallback"] = rallly_url
+    MATTER_PAYLOAD["attachments"][0]["text"] = rallly_url
+    MATTER_PAYLOAD["attachments"][0]["title"] = title
+    MATTER_PAYLOAD["attachments"][0]["fields"] = [
+        {
+            "short": True,
+            "title": "Week",
+            "value": f"{start_date}",
+        },
+    ]
+
+    return MATTER_PAYLOAD
+
+
+def rallly_payload(date, slots):
+    RALLLY_PAYLOAD["0"]["json"]["options"] = slots
+    RALLLY_PAYLOAD["0"]["json"]["description"] = f"Volleyball week {date}"
+
+    return RALLLY_PAYLOAD

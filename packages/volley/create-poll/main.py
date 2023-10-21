@@ -1,13 +1,12 @@
-from payloads import MATTER_PAYLOAD
+from payloads import matter_payload
 from datetime import date, timedelta
 import scrapper
-import rally
+import rallly
 
 TOKEN = "qgt54mas5tdqzkriy176z9zxwo"
 VALID_CHANNELS = [
     "sports",
     "bottest",
-    "testing-channel",
 ]
 
 
@@ -35,28 +34,16 @@ def create_poll(args):
 
     try:
         slots = scrapper.get_slots(start)
-        rally_url = rally.create_poll(slots, start)
+        rallly_url = rallly.create_poll(slots, start)
     except Exception as e:
         return {
             "statusCode": 400,
             "body": str(e),
         }
 
-    MATTER_PAYLOAD["text"] = "<!channel>"
-    MATTER_PAYLOAD["attachments"][0]["fallback"] = rally_url
-    MATTER_PAYLOAD["attachments"][0]["text"] = rally_url
-    MATTER_PAYLOAD["attachments"][0]["title"] = title
-    MATTER_PAYLOAD["attachments"][0]["fields"] = [
-        {
-            "short": True,
-            "title": "Week",
-            "value": f"{start}",
-        },
-    ]
-
     return {
         "headers": {
             "content-type": "application/json",
         },
-        "body": MATTER_PAYLOAD,
+        "body": matter_payload(start, title, rallly_url),
     }
