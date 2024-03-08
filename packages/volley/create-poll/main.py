@@ -1,9 +1,10 @@
 from payloads import matter_payload
 from datetime import date, timedelta
+
 import scrapper
 import rallly
+import os
 
-TOKEN = "qgt54mas5tdqzkriy176z9zxwo"
 VALID_CHANNELS = [
     "sports",
     "bottest",
@@ -15,7 +16,10 @@ def create_poll(args):
     request_channel = args.get("channel_name", "CHANNEL")
     request_text = args.get("text", "")
 
-    if request_token != TOKEN or request_channel not in VALID_CHANNELS:
+    if (
+        request_token != os.environ["SECRET_TOKEN"]
+        or request_channel not in VALID_CHANNELS
+    ):
         return {"statusCode": 403}
 
     today = date.today()
