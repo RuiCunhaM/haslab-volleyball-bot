@@ -17,10 +17,10 @@ def create_poll(args):
     request_text = args.get("text", "")
 
     if (
-        request_token != os.environ["SECRET_TOKEN"]
+        request_token != os.getenv("SECRET_TOKEN")
         or request_channel not in VALID_CHANNELS
     ):
-        return {"statusCode": 403}
+        return {"body": "Forbidden", "statusCode": 403}
 
     today = date.today()
 
