@@ -1,5 +1,5 @@
 from main import create_poll
 
 
-def main(args):
-    return create_poll(args)
+def main(event, context):
+    return create_poll(event)
