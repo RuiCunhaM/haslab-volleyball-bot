@@ -10,16 +10,15 @@ VALID_CHANNELS = [
     "bottest",
 ]
 
+SECRET_TOKEN = "***REMOVED***"
+
 
 def create_poll(args):
     request_token = args.get("token", "TOKEN")
     request_channel = args.get("channel_name", "CHANNEL")
     request_text = args.get("text", "")
 
-    if (
-        request_token != os.getenv("SECRET_TOKEN")
-        or request_channel not in VALID_CHANNELS
-    ):
+    if request_token != SECRET_TOKEN or request_channel not in VALID_CHANNELS:
         return {"body": "Forbidden", "statusCode": 403}
 
     today = date.today()
