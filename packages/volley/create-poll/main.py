@@ -29,6 +29,10 @@ def create_poll(args):
     elif request_text == "current":
         start = today + timedelta(days=1)
         title = "Rallly for this week!"
+    elif week_offset := int(request_text):
+        week_offset = max(0, week_offset)
+        start = today + timedelta(days=-today.weekday(), weeks=week_offset)
+        title = f"Rallly for week {start.isocalendar().week}! ({start.strftime('%d %b')} - {(start + timedelta(days=6.9)).strftime('%d %b')}) "
     else:
         return {
             "statusCode": 400,
