@@ -12,7 +12,8 @@ packages:
         runtime: 'python:default'
         web: true
         parameters: {}
-        environment: {}
+        environment:
+          SECRET_TOKEN: "${SECRET_TOKEN}"
         annotations: {}
         limits: 
           timeout: 30000 

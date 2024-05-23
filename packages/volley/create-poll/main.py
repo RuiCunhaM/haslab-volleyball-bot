@@ -10,7 +10,7 @@ VALID_CHANNELS = [
     "bottest",
 ]
 
-SECRET_TOKEN = "***REMOVED***"
+SECRET_TOKEN = os.environ.get("SECRET_TOKEN")
 
 
 def create_poll(args):
