@@ -8,12 +8,13 @@ packages:
     functions:
       - name: create-poll
         binary: false
-        main: ''
-        runtime: 'python:default'
+        main: ""
+        runtime: "python:default"
         web: true
         parameters: {}
         environment:
           SECRET_TOKEN: "${SECRET_TOKEN}"
+          DISCORD_HOOK: "${DISCORD_HOOK}"
         annotations: {}
-        limits: 
-          timeout: 30000 
+        limits:
+          timeout: 30000

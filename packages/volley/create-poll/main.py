@@ -1,6 +1,7 @@
 from payloads import matter_payload
 from datetime import date, timedelta
 
+import discord
 import scrapper
 import rallly
 import os
@@ -47,6 +48,11 @@ def create_poll(args):
             "statusCode": 400,
             "body": str(e),
         }
+
+    try:
+        discord.notify(start, title, rallly_url)
+    except Exception as e:
+        print(str(e))
 
     return {
         "headers": {
