@@ -19,7 +19,7 @@ def notify(start_date, title, rally_url):
                 "fields": [
                     {
                         "name": "Week",
-                        "value": start_date,
+                        "value": f"{start_date}",
                         "inline": True,
                     }
                 ],
