@@ -25,7 +25,7 @@ def notify(start_date, title, rally_url):
                 ],
             }
         ],
-        "content": "<#969219815455727638>",  # Hardcoded channel tag
+        "content": "@here",
     }
 
     requests.post(DISCORD_HOOK, json=payload)
