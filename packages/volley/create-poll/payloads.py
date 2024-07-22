@@ -28,18 +28,19 @@ RALLLY_PAYLOAD = {
 }
 
 
-def matter_payload(start_date, title, rallly_url):
+def matter_payload(title, text, start_date = None):
     MATTER_PAYLOAD["text"] = "<!channel>"
-    MATTER_PAYLOAD["attachments"][0]["fallback"] = rallly_url
-    MATTER_PAYLOAD["attachments"][0]["text"] = rallly_url
+    MATTER_PAYLOAD["attachments"][0]["fallback"] = text
+    MATTER_PAYLOAD["attachments"][0]["text"] = text
     MATTER_PAYLOAD["attachments"][0]["title"] = title
-    MATTER_PAYLOAD["attachments"][0]["fields"] = [
-        {
-            "short": True,
-            "title": "Week",
-            "value": f"{start_date}",
-        },
-    ]
+    if start_date:
+        MATTER_PAYLOAD["attachments"][0]["fields"] = [
+            {
+                "short": True,
+                "title": "Week",
+                "value": f"{start_date}",
+            },
+        ]
 
     return MATTER_PAYLOAD
 
