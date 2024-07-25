@@ -5,6 +5,7 @@ import discord
 import scrapper
 import rallly
 import os
+import re
 
 VALID_CHANNELS = [
     "sports",
@@ -12,6 +13,7 @@ VALID_CHANNELS = [
 ]
 
 SECRET_TOKEN = os.environ.get("SECRET_TOKEN")
+
 
 def create_poll(args):
     request_token = args.get("token", "TOKEN")
@@ -28,8 +30,15 @@ def create_poll(args):
         start = today + timedelta(days=-today.weekday(), weeks=1)
         title = "Rallly for next week!"
     elif request_text.split()[0] == "echo":
-        title = "Announcement"
-        text = request_text.split(' ', 1)[1]
+        if capture := re.search(r'\s*"([^"\n]*)"\s+"([^"\n]*)"',
+                                request_text.split(' ', 1)[1]):
+            title = capture.group(1)
+            text = capture.group(2)
+        else:
+            return {
+                "statusCode": 400,
+                "body": "Invalid argument for echo",
+            }
     elif request_text == "current":
         start = today + timedelta(days=1)
         title = "Rallly for this week!"
