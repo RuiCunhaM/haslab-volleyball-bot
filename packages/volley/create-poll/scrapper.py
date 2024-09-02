@@ -7,9 +7,7 @@ VALID_HOURS = [
     "17:00",
 ]
 
-UM_TEMPLATE_URL = Template(
-    "https://www.uminhosports.sas.uminho.pt/aluguercampos.php?dia=$date&desporto="
-)
+UM_TEMPLATE_URL = Template("https://sasum.scl.pt/aluguercampos.php?dia=$date&desporto=")
 
 
 def get_slots(start_date):
