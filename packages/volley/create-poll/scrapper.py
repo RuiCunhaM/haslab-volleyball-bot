@@ -24,12 +24,12 @@ def get_slots(start_date):
             raise Exception(response.json())
 
         soup = BeautifulSoup(response.content, "html.parser")
-
-        results = soup.find_all("div", class_="col-sm-7")[1]
-        available = results.find_all(
-            "button", class_="btn btn-primary btn-m btn_reserva"
-        )
-        available = [x.text for x in available]
+        results = soup.find(
+            lambda tag: tag.name == 'div' and
+            'col-md-6 m-b-30' == ' '.join(tag.get('class') or []) and
+            tag.find('b', string=lambda s: s and "Nave 2" in s)
+        ).find_all("button", class_="btn btn-primary btn-m btn_reserva")
+        available = [x.text for x in results]
         for h in VALID_HOURS:
             if h in available:
                 start_time = time.fromisoformat(h)
