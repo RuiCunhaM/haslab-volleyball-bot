@@ -30,8 +30,9 @@ def create_poll(args):
         start = today + timedelta(days=-today.weekday(), weeks=1)
         title = "Rallly for next week!"
     elif request_text.split()[0] == "echo":
-        if capture := re.search(r'\s*"([^"\n]*)"\s+"([^"\n]*)"',
-                                request_text.split(' ', 1)[1]):
+        if capture := re.search(
+            r'\s*"([^"\n]*)"\s+"([^"\n]*)"', request_text.split(" ", 1)[1]
+        ):
             title = capture.group(1)
             text = capture.group(2)
         else:

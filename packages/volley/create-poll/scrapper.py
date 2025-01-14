@@ -23,9 +23,9 @@ def get_slots(start_date):
 
         soup = BeautifulSoup(response.content, "html.parser")
         results = soup.find(
-            lambda tag: tag.name == 'div' and
-            'col-md-6 m-b-30' == ' '.join(tag.get('class') or []) and
-            tag.find('b', string=lambda s: s and "Nave 2" in s)
+            lambda tag: tag.name == "div"
+            and "col-md-6 m-b-30" == " ".join(tag.get("class") or [])
+            and tag.find("b", string=lambda s: s and "Nave 2" in s)
         ).find_all("button", class_="btn btn-primary btn-m btn_reserva")
         available = [x.text for x in results]
         for h in VALID_HOURS:

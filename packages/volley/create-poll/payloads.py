@@ -28,7 +28,7 @@ RALLLY_PAYLOAD = {
 }
 
 
-def matter_payload(title, text, start_date = None):
+def matter_payload(title, text, start_date=None):
     MATTER_PAYLOAD["text"] = "<!channel>"
     MATTER_PAYLOAD["attachments"][0]["fallback"] = text
     MATTER_PAYLOAD["attachments"][0]["text"] = text
