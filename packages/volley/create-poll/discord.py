@@ -12,10 +12,10 @@ def notify(title, text, start_date=None):
                 "description": text,
                 "color": 16776960,
                 "footer": {"text": ""},
-                "author": {
-                    "name": "Volleyball",
-                    "icon_url": "https://i.pinimg.com/736x/84/36/cf/8436cf7032a6d1895c9834cb137107cb.jpg",
-                },
+                # "author": {
+                #     "name": "Volleyball",
+                #     "icon_url": "https://i.pinimg.com/736x/84/36/cf/8436cf7032a6d1895c9834cb137107cb.jpg",
+                # },
             }
         ],
         "content": "@here",

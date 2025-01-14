@@ -6,8 +6,8 @@ MATTER_PAYLOAD = {
     "attachments": [
         {
             "color": "#FFFF00",
-            "author_name": "Volleyball",
-            "author_icon": "https://i.pinimg.com/736x/84/36/cf/8436cf7032a6d1895c9834cb137107cb.jpg",
+            # "author_name": "Volleyball",
+            # "author_icon": "https://i.pinimg.com/736x/84/36/cf/8436cf7032a6d1895c9834cb137107cb.jpg",
         }
     ],
 }
