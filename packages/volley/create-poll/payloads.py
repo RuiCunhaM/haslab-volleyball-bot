@@ -8,6 +8,8 @@ MATTER_PAYLOAD = {
             "color": "#FFFF00",
             # "author_name": "Volleyball",
             # "author_icon": "https://i.pinimg.com/736x/84/36/cf/8436cf7032a6d1895c9834cb137107cb.jpg",
+            "footer": "ruicunham/haslab-volleyball-bot",
+            "footer_icon": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
         }
     ],
 }
