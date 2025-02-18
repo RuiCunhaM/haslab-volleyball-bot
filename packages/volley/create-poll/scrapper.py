@@ -4,7 +4,7 @@ from string import Template
 from datetime import timedelta, time
 
 VALID_HOURS = [
-    "17:00",
+        "17:00", "18:00", "12:00"
 ]
 
 UM_TEMPLATE_URL = Template("https://sasum.scl.pt/aluguercampos.php?dia=$date&desporto=")
