@@ -7,6 +7,7 @@ import scrapper
 import rallly
 import os
 import re
+import base64
 
 VALID_CHANNELS = [
     "sports",
@@ -31,8 +32,10 @@ def create_poll(args):
         start = today + timedelta(days=-today.weekday(), weeks=1)
         title = "Rallly for next week!"
     elif request_text.split()[0] == "confirm":
-        try: 
-            start_time = datetime.strptime(f'{request_text.split()[1]} {request_text.split()[2]}', "%d-%m-%Y %H:%M")
+        try:
+            start_time = datetime.strptime(
+                f"{request_text.split()[1]} {request_text.split()[2]}", "%d-%m-%Y %H:%M"
+            )
         except ValueError:
             return {
                 "statusCode": 400,
@@ -51,14 +54,8 @@ LOCATION:Gym - Nave 2
 END:VEVENT
 END:VCALENDAR
 """
-        response = requests.put("https://transfer.sh/haslab-volleyball.ics?expires=5", data=ics_content)
-        if response.status_code != 200:
-            return {
-                    "statusCode": 400,
-                    "body": "Failed to upload ics file to transfer.sh",
-                    }
-        title = "Announcement"
-        text = f"Volleyball game scheduled for [{start_time.strftime('%Y-%m-%d %H:%M')}]({response.text.strip()})!"
+        title = f"Volleyball game scheduled for {start_time.strftime('%Y-%m-%d %H:%M')}"
+        text = f"[Add to Calendar](data:text/calendar;base64,{base64.b64encode(ics_content.encode()).decode('utf-8')})"
     elif request_text.split()[0] == "echo":
         if capture := re.search(
             r'\s*"([^"\n]*)"\s+"([^"\n]*)"', request_text.split(" ", 1)[1]
