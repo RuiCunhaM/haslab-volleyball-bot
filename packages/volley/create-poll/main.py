@@ -1,6 +1,7 @@
 from payloads import matter_payload
-from datetime import date, timedelta
+from datetime import date, timedelta, strptime
 
+import requests
 import discord
 import scrapper
 import rallly
@@ -29,6 +30,43 @@ def create_poll(args):
     if not request_text:
         start = today + timedelta(days=-today.weekday(), weeks=1)
         title = "Rallly for next week!"
+    elif request_text.split()[0] == "confirm":
+        if capture := re.search(
+            r'\s*"([^"\n]*)"\s+"([^"\n]*)"', request_text.split(" ", 1)[1]
+        ):
+            try: 
+                start_time = strptime(f'{capture.group(1)} {capture.group(2)}', "%Y-%m-%d %H:%M")
+            except ValueError:
+                return {
+                    "statusCode": 400,
+                    "body": "Invalid datetime format. Please use YYYY-MM-DD HH:MM",
+                }
+            end_time = start_time + timedelta(hours=1)
+            ics_content = f"""BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTAMP:{start_time.strftime("%Y%m%dT%H%M%SZ")}
+DTSTART:{start_time.strftime("%Y%m%dT%H%M%SZ")}
+DTEND:{end_time.strftime("%Y%m%dT%H%M%SZ")}
+SUMMARY:Volleyball
+DESCRIPTION:HASLab
+LOCATION:Gym - Nave 2
+END:VEVENT
+END:VCALENDAR
+"""
+            response = requests.put("https://transfer.sh/haslab-volleyball.ics?expires=5", data=ics_content)
+            if response.status_code != 200:
+                return {
+                        "statusCode": 400,
+                        "body": "Failed to upload ics file to transfer.sh",
+                        }
+            title = "Announcement"
+            text = f"Volleyball game confirmed for [{start_time.strftime('%Y-%m-%d %H:%M')}]({response.text.strip()})!"
+        else:
+            return {
+                "statusCode": 400,
+                "body": "Invalid argument for confirm",
+            }
     elif request_text.split()[0] == "echo":
         if capture := re.search(
             r'\s*"([^"\n]*)"\s+"([^"\n]*)"', request_text.split(" ", 1)[1]
