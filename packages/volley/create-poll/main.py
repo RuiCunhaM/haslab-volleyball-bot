@@ -63,10 +63,11 @@ def create_poll(args):
                 "body": str(e),
             }
 
-    try:
-        discord.notify(title, text, start)
-    except Exception as e:
-        print(str(e))
+    if request_channel != "bottest":
+        try:
+            discord.notify(title, text, start)
+        except Exception as e:
+            print(str(e))
 
     return {
         "headers": {
