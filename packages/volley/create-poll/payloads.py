@@ -30,19 +30,29 @@ RALLLY_PAYLOAD = {
 }
 
 
-def matter_payload(title, text, start_date=None):
+def matter_payload(title, text, start_date=None, fields=[]):
     MATTER_PAYLOAD["text"] = "<!channel>"
     MATTER_PAYLOAD["attachments"][0]["fallback"] = text
     MATTER_PAYLOAD["attachments"][0]["text"] = text
     MATTER_PAYLOAD["attachments"][0]["title"] = title
+    MATTER_PAYLOAD["attachments"][0]["fields"] = []
+
     if start_date:
-        MATTER_PAYLOAD["attachments"][0]["fields"] = [
+        MATTER_PAYLOAD["attachments"][0]["fields"].append(
             {
                 "short": True,
                 "title": "Week",
                 "value": f"{start_date}",
-            },
-        ]
+            }
+        )
+
+    for title, value in fields:
+        MATTER_PAYLOAD["attachments"][0]["fields"].append(
+            {
+                "title": title,
+                "value": value,
+            }
+        )
 
     return MATTER_PAYLOAD
 
