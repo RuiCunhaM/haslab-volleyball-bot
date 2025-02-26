@@ -10,6 +10,7 @@ MATTER_PAYLOAD = {
             # "author_icon": "https://i.pinimg.com/736x/84/36/cf/8436cf7032a6d1895c9834cb137107cb.jpg",
             "footer": "ruicunham/haslab-volleyball-bot",
             "footer_icon": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+            "fields": [],
         }
     ],
 }
@@ -30,19 +31,28 @@ RALLLY_PAYLOAD = {
 }
 
 
-def matter_payload(title, text, start_date=None):
+def matter_payload(title, text, start_date=None, fields=[]):
     MATTER_PAYLOAD["text"] = "<!channel>"
     MATTER_PAYLOAD["attachments"][0]["fallback"] = text
     MATTER_PAYLOAD["attachments"][0]["text"] = text
     MATTER_PAYLOAD["attachments"][0]["title"] = title
+
     if start_date:
-        MATTER_PAYLOAD["attachments"][0]["fields"] = [
+        MATTER_PAYLOAD["attachments"][0]["fields"].append(
             {
                 "short": True,
                 "title": "Week",
                 "value": f"{start_date}",
-            },
-        ]
+            }
+        )
+
+    for title, value in fields:
+        MATTER_PAYLOAD["attachments"][0]["fields"].append(
+            {
+                "title": title,
+                "value": value,
+            }
+        )
 
     return MATTER_PAYLOAD
 

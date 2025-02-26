@@ -4,7 +4,7 @@ import os
 DISCORD_HOOK = os.environ.get("DISCORD_HOOK")
 
 
-def notify(title, text, start_date=None):
+def notify(title, text, start_date=None, fields=[]):
     payload = {
         "embeds": [
             {
@@ -19,17 +19,27 @@ def notify(title, text, start_date=None):
                 #     "name": "Volleyball",
                 #     "icon_url": "https://i.pinimg.com/736x/84/36/cf/8436cf7032a6d1895c9834cb137107cb.jpg",
                 # },
+                "fields": [],
             }
         ],
         "content": "@here",
     }
+
     if start_date:
-        payload["embeds"][0]["fields"] = [
+        payload["embeds"][0]["fields"].append(
             {
                 "name": "Week",
                 "value": f"{start_date}",
                 "inline": True,
             }
-        ]
+        )
+
+    for title, value in fields:
+        payload["embeds"][0]["fields"].append(
+            {
+                "title": title,
+                "value": value,
+            }
+        )
 
     requests.post(DISCORD_HOOK, json=payload)
