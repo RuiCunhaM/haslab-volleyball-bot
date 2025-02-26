@@ -37,7 +37,7 @@ def notify(title, text, start_date=None, fields=[]):
     for title, value in fields:
         payload["embeds"][0]["fields"].append(
             {
-                "title": title,
+                "name": title,
                 "value": value,
             }
         )
