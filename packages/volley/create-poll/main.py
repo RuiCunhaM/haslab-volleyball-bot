@@ -1,13 +1,11 @@
 from payloads import matter_payload
 from datetime import date, timedelta, datetime
 
-import requests
 import discord
 import scrapper
 import rallly
 import os
 import re
-import base64
 
 VALID_CHANNELS = [
     "sports",
@@ -45,7 +43,7 @@ def create_poll(args):
         end_time = start_time + timedelta(hours=1)
         title = "Announcement"
         text = f"Volleyball game confirmed for {start_time.strftime('%Y-%m-%d %H:%M')}!"
-        google_link = f"https://calendar.google.com/calendar/render?action=TEMPLATE&dates={start_time.strftime("%Y%m%dT%H%M%SZ")}%2F{end_time.strftime("%Y%m%dT%H%M%SZ")}&details=&location=Nave%202&text=Volleyball%20Match"
+        google_link = f"https://calendar.google.com/calendar/render?action=TEMPLATE&dates={start_time.strftime('%Y%m%dT%H%M%SZ')}%2F{end_time.strftime('%Y%m%dT%H%M%SZ')}&details=&location=Nave%202&text=Volleyball%20Match"
         fields.append(("Google Calendar", google_link))
     elif request_text.split()[0] == "echo":
         if capture := re.search(
