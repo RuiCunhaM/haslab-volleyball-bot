@@ -10,7 +10,6 @@ MATTER_PAYLOAD = {
             # "author_icon": "https://i.pinimg.com/736x/84/36/cf/8436cf7032a6d1895c9834cb137107cb.jpg",
             "footer": "ruicunham/haslab-volleyball-bot",
             "footer_icon": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
-            "fields": [],
         }
     ],
 }
@@ -36,6 +35,7 @@ def matter_payload(title, text, start_date=None, fields=[]):
     MATTER_PAYLOAD["attachments"][0]["fallback"] = text
     MATTER_PAYLOAD["attachments"][0]["text"] = text
     MATTER_PAYLOAD["attachments"][0]["title"] = title
+    MATTER_PAYLOAD["attachments"][0]["fields"] = []
 
     if start_date:
         MATTER_PAYLOAD["attachments"][0]["fields"].append(
