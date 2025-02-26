@@ -19,6 +19,7 @@ def create_poll(args):
     request_token = args.get("token", "TOKEN")
     request_channel = args.get("channel_name", "CHANNEL")
     request_text = args.get("text", "")
+    text = ""
     start = None
     fields = []
 
