@@ -1,10 +1,30 @@
-from payloads import rallly_payload
 import requests
 
 RALLLY_URL_1 = "https://app.rallly.co/api/auth/csrf"
 RALLLY_URL_2 = "https://app.rallly.co/api/auth/callback/guest"
 RALLLY_URL_3 = "https://app.rallly.co/api/auth/session"
 RALLLY_CREATE_URL = "https://app.rallly.co/api/trpc/polls.create?batch=1"
+
+
+def rallly_payload(date, slots):
+    payload = {
+        "0": {
+            "json": {
+                "disableComments": False,
+                "hideParticipants": False,
+                "hideScores": False,
+                "title": "Volleyball",
+                "location": "Nave 2",
+                "timeZone": "Europe/Lisbon",
+                "requireParticipantEmail": None,
+                "options": slots,
+                "description": f"Volleyball week {date}",
+            },
+            "meta": {"values": {"requireParticipantEmail": ["undefined"]}},
+        }
+    }
+
+    return payload
 
 
 def create_poll(slots, date):

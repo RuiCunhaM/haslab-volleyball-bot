@@ -1,3 +1,5 @@
+from common import GIT_ICON, GIT_REPO
+
 import requests
 import os
 
@@ -12,13 +14,9 @@ def notify(title, text, start_date=None, fields=[]):
                 "description": text,
                 "color": 16776960,
                 "footer": {
-                    "text": "ruicunham/haslab-volleyball-bot",
-                    "icon_url": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+                    "text": GIT_REPO,
+                    "icon_url": GIT_ICON,
                 },
-                # "author": {
-                #     "name": "Volleyball",
-                #     "icon_url": "https://i.pinimg.com/736x/84/36/cf/8436cf7032a6d1895c9834cb137107cb.jpg",
-                # },
                 "fields": [],
             }
         ],
