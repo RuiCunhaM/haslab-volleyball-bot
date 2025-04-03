@@ -5,6 +5,7 @@ import discord
 import scrapper
 import rallly
 
+import pytz
 import os
 import re
 
@@ -22,9 +23,17 @@ def confirm(request_text, fields):
     )
     end_time = start_time + timedelta(hours=1)
 
+    pt_tz = pytz.timezone("Europe/Lisbon")
+    start_time = pt_tz.localize(start_time)
+    end_time = pt_tz.localize(end_time)
+
     title = "Announcement"
     text = f"Volleyball game confirmed for {start_time.strftime('%Y-%m-%d %H:%M')}!"
-    google_link = f"https://calendar.google.com/calendar/render?action=TEMPLATE&dates={start_time.strftime('%Y%m%dT%H%M%SZ')}%2F{end_time.strftime('%Y%m%dT%H%M%SZ')}&details=&location=Nave%202&text=Volleyball%20Match"
+
+    utc_start_time = start_time.astimezone(pytz.utc)
+    utc_end_time = end_time.astimezone(pytz.utc)
+
+    google_link = f"https://calendar.google.com/calendar/render?action=TEMPLATE&dates={utc_start_time.strftime('%Y%m%dT%H%M%SZ')}%2F{utc_end_time.strftime('%Y%m%dT%H%M%SZ')}&details=&location=Nave%202&text=Volleyball%20Match"
 
     fields.append(("", f"[📅 Add to Google Calendar]({google_link})"))
 
