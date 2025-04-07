@@ -80,7 +80,7 @@ def create_poll(args):
         title = f"Rallly for week {start.isocalendar().week}! ({start.strftime('%d %b')} - {(start + timedelta(days=6.9)).strftime('%d %b')}) "
     elif request_text.split()[0] == "confirm":
         try:
-            text, title = confirm(request_text, fields)
+            title, text = confirm(request_text, fields)
         except ValueError:
             return {
                 "statusCode": 400,
@@ -88,7 +88,7 @@ def create_poll(args):
             }
     elif request_text.split()[0] == "echo":
         try:
-            text, title = echo(request_text)
+            title, text = echo(request_text)
         except ValueError:
             return {
                 "statusCode": 400,
