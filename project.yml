@@ -9,12 +9,13 @@ packages:
       - name: create-poll
         binary: false
         main: ""
-        runtime: "python:default"
+        runtime: "python:3.11"
         web: true
         parameters: {}
         environment:
           SECRET_TOKEN: "${SECRET_TOKEN}"
           DISCORD_HOOK: "${DISCORD_HOOK}"
+          CL_COLLECTION: "${CL_COLLECTION}"
         annotations: {}
         limits:
           timeout: 30000

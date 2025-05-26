@@ -5,7 +5,6 @@ import discord
 import scrapper
 import rallly
 
-import pytz
 import os
 import re
 
@@ -15,27 +14,20 @@ VALID_CHANNELS = [
 ]
 
 SECRET_TOKEN = os.environ.get("SECRET_TOKEN")
+CL_COLLECTION = os.environ.get("CL_COLLECTION")
 
 
 def confirm(request_text, fields):
-    start_time = datetime.strptime(
+    start_date = datetime.strptime(
         f"{request_text.split()[1]} {request_text.split()[2]}", "%d-%m-%Y %H:%M"
     )
-    end_time = start_time + timedelta(hours=1)
-
-    pt_tz = pytz.timezone("Europe/Lisbon")
-    start_time = pt_tz.localize(start_time)
-    end_time = pt_tz.localize(end_time)
 
     title = "Announcement"
-    text = f"Volleyball game confirmed for {start_time.strftime('%Y-%m-%d %H:%M')}!"
+    text = f"Volleyball game confirmed for {start_date.strftime('%Y-%m-%d %H:%M')}!"
 
-    utc_start_time = start_time.astimezone(pytz.utc)
-    utc_end_time = end_time.astimezone(pytz.utc)
+    calendar_link = f"https://my.calendarlink.com/link?collection={CL_COLLECTION}&title=Volleyball%20Match&start={start_date.strftime("%d %B %Y %H%%3A%M")}&duration=60 minutes&timezone=Europe%2FLisbon&location=Nave 2"
 
-    google_link = f"https://calendar.google.com/calendar/render?action=TEMPLATE&dates={utc_start_time.strftime('%Y%m%dT%H%M%SZ')}%2F{utc_end_time.strftime('%Y%m%dT%H%M%SZ')}&details=&location=Nave%202&text=Volleyball%20Match"
-
-    fields.append(("", f"[📅 Add to Google Calendar]({google_link})"))
+    fields.append(("", f"[📅 Add to Calendar]({calendar_link})"))
 
     return title, text
 
