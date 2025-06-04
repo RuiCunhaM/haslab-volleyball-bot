@@ -2,7 +2,7 @@ from datetime import date, timedelta, datetime
 
 import mattermost
 import discord
-import scrapper
+import scraper
 import rallly
 
 import os
@@ -95,7 +95,7 @@ def create_poll(args):
     # If we have a start date, we are creating a poll
     if start:
         try:
-            slots = scrapper.get_slots(start)
+            slots = scraper.get_slots(start)
             text = rallly.create_poll(slots, start)
         except Exception as e:
             return {
